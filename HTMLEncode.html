@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">		
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="description" content="ziven27的主页" />
+		<meta name="description" content="ziven27的主页" />
+		<meta name="keywords" content="ziven27, 个人博客, 个人网站, web前端,JavaScript,css,html" />
+		<meta name="author" content="ziven27,heartstar27@qq.com" />
+		<meta name="baidu-site-verification" content="mSgh5Wzaiu" />
+		<title>在线常用小工具</title>
+		<link rel="shortcut icon" href="src/favicon.ico" />
+		<style>
+			* { box-sizing: border-box; }
+			body { margin: 0; }
+			body, html { height: 100%; position: relative; overflow: hidden; }
+			body, textarea, button { font-size: 16px; font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+			.bt, .int { transition: 0.3s; }
+			.int { height: 100%; padding: 1em; width: 100%; resize: none; font-size: 18px; border: 1px solid #ccc; margin: 0; }
+			.int:focus { outline: 0; }
+			.int-area:hover .int { border-color: #66afe9; box-shadow: inset 0 0 8px rgba(102, 175, 233, .6); }
+			.bt { background-color: #4c5fe2; padding: 0.8em 2em; border: none; border-radius: 3px; color: #fff; }
+			.int-area { width: 50%; height: 100%; position: absolute; top: 0; margin: 0; }
+			.int-area .bt { position: absolute; bottom: 1em; z-index: 1; visibility: hidden; opacity: 0; }
+			.int-area:hover .bt { visibility: visible; opacity: 1; }
+			.int-html { left: 0; }
+			.int-encode { right: 0; }
+			.int-html .bt { right: -1em; }
+			.int-encode .bt { left: -1em; }
+			.int-html:hover .bt { right: 1em; }
+			.int-encode:hover .bt { left: 1em; }
+		</style>
+	</head>
+	<body>
+		<h1>在线html 转义</h1>
+		<form id="htmlForm" class="int-area int-html">
+			<textarea class="int" name="" id="html" cols="30" rows="10" placeholder="html"></textarea>
+			<button class="bt" type="submit">转encode &gt;</button>
+		</form>
+		<form id="encodeForm" class="int-area int-encode">
+			<textarea class="int" name="" id="encode" cols="30" rows="10" placeholder="encode"></textarea>
+			<button class="bt" type="submit">&lt; 转html</button>
+		</form>
+		<script>
+		(function(){
+			function $(id){
+				return document.getElementById(id);
+			};
+
+			function HtmlEncode(opt){
+				this.$htmlForm=$(opt.htmlFormId);
+				this.$encodeForm=$(opt.encodeFormId);
+				this.init();
+			};
+
+
+			HtmlEncode.prototype.init = function() {
+				var _it=this;
+				_it.$htmlForm.addEventListener('submit',function(e){
+					e.preventDefault();
+					var int=_it.$htmlForm.html.value;
+					var out= _it.encode(int);
+					_it.$encodeForm.encode.value=out;
+				});
+				_it.$encodeForm.addEventListener('submit',function(e){
+					e.preventDefault();
+					var int=_it.$encodeForm.encode.value;
+					var out= _it.Decode(int);
+					_it.$htmlForm.html.value=out;
+				});
+			};
+			HtmlEncode.prototype.encode=function(html){
+				var temp = document.createElement("div");
+			    (temp.textContent != null) ? (temp.textContent = html) : (temp.innerText = html);
+			    var output = temp.innerHTML;
+			    temp = null;
+			    return output;				
+			};
+			HtmlEncode.prototype.Decode=function(text){
+				var temp = document.createElement("div"); 
+			    temp.innerHTML = text; 
+			    var output = temp.innerText || temp.textContent; 
+			    temp = null; 
+			    return output;
+			};
+			new HtmlEncode({
+				htmlFormId:'htmlForm',
+				encodeFormId:'encodeForm'
+			});
+		})();
+		</script>
+		<script>
+		var _hmt = _hmt || [];
+		(function() {
+		  var hm = document.createElement("script");
+		  hm.src = "//hm.baidu.com/hm.js?30709f8a251d3a53a8856096ebbb5882";
+		  var s = document.getElementsByTagName("script")[0]; 
+		  s.parentNode.insertBefore(hm, s);
+		})();
+		</script>		                          
+	</body>
+</html>
